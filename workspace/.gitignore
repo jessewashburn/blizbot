@@ -1,0 +1,9 @@
+# Personal/private — stay local
+USER.md
+IDENTITY.md
+MEMORY.md
+memory/
+BOOTSTRAP.md
+
+# OpenClaw internal state
+.openclaw/

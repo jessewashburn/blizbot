@@ -1,32 +1,33 @@
 # Logs
 *.log
+logs/
 /tmp/
 
 # Session/memory state
 sessions/
 memory/
 canvas/
-*.bak
 
-# Any plaintext secret backups
+# Secrets / credentials
+credentials/
 *.key
 *.token
+*.bak
+*.bak*
 
 # Node
 node_modules/
 
 # OS
 .DS_Store
-workspace/
-credentials/
-*.bak*
-logs/
+
+# OpenClaw internals
 update-check.json
-workspace/
-credentials/
-*.bak*
-logs/
-update-check.json
+
+# Workspace — exclude personal/private files, track templates
 workspace/USER.md
 workspace/IDENTITY.md
+workspace/MEMORY.md
 workspace/memory/
+workspace/.openclaw/
+workspace/BOOTSTRAP.md
