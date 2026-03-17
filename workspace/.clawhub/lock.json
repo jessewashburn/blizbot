@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "skills": {
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1773778396773
+    },
+    "tmux": {
+      "version": "1.0.0",
+      "installedAt": 1773778402796
+    },
+    "himalaya": {
+      "version": "1.0.0",
+      "installedAt": 1773778404650
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1773778441271
+    }
+  }
+}
