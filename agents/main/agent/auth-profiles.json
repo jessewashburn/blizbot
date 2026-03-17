@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "profiles": {
+    "anthropic:default": {
+      "type": "api_key",
+      "provider": "anthropic",
+      "keyRef": {
+        "source": "env",
+        "provider": "default",
+        "id": "ANTHROPIC_API_KEY"
+      }
+    }
+  },
+  "usageStats": {
+    "anthropic:default": {
+      "errorCount": 0,
+      "lastUsed": 1773777057836
+    }
+  }
+}

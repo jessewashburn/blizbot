@@ -1,0 +1,29 @@
+# Logs
+*.log
+/tmp/
+
+# Session/memory state
+sessions/
+memory/
+canvas/
+*.bak
+
+# Any plaintext secret backups
+*.key
+*.token
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+workspace/
+credentials/
+*.bak*
+logs/
+update-check.json
+workspace/
+credentials/
+*.bak*
+logs/
+update-check.json
