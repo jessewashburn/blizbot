@@ -49,10 +49,14 @@
   "plugins": {
     "allow": [
       "promptroot-gateway",
+      "promptroot-relay",
       "telegram"
     ],
     "entries": {
       "promptroot-gateway": {
+        "enabled": true
+      },
+      "promptroot-relay": {
         "enabled": true
       }
     }
