@@ -1,6 +1,6 @@
 ---
 name: sdd
-description: Create and manage Software Design Documents (SDDs) — versioned, phased planning documents that record every project or feature Bliz works on with Jesse. Use when starting a new project, feature, or significant task; when Jesse asks to "write up a plan", "document this", "create an SDD", or "make a design doc"; or when reviewing/updating an existing plan. SDDs live in workspace/SDD/ and are gitignored (private planning docs).
+description: Create and manage Software Design Documents (SDDs) — versioned, phased planning documents that record every project or feature Brace works on with Jesse. Use when starting a new project, feature, or significant task; when Jesse asks to "write up a plan", "document this", "create an SDD", or "make a design doc"; or when reviewing/updating an existing plan. SDDs live in workspace/SDD/ and are gitignored (private planning docs).
 ---
 
 # SDD — Software Design Documents
@@ -20,7 +20,7 @@ SDD-<NNNN>-<slug>.md
 - `NNNN` — zero-padded incrementing number (0001, 0002, …)
 - `slug` — short kebab-case title
 
-Examples: `SDD-0001-blizbot-setup.md`, `SDD-0002-dev-workflow-skills.md`
+Examples: `SDD-0001-bracebot-setup.md`, `SDD-0002-dev-workflow-skills.md`
 
 Find the next number by listing existing SDDs:
 ```bash
@@ -44,7 +44,7 @@ If the fetch fails (network/rate limit), fall back to the inline template below:
 
 **Version:** 1.0
 **Date:** YYYY-MM-DD
-**Author:** Bliz
+**Author:** Brace
 **Status:** Draft | In Progress | Complete
 
 ## Overview
