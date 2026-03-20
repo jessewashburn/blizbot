@@ -1,6 +1,6 @@
 ---
 name: sdd
-description: Create and manage Software Design Documents (SDDs) — versioned, phased planning documents that record every project or feature Bliz works on with Jesse. Use when starting a new project, feature, or significant task; when Jesse asks to "write up a plan", "document this", "create an SDD", or "make a design doc"; or when reviewing/updating an existing plan. SDDs live in workspace/SDD/ and are gitignored (private planning docs).
+description: Create and manage Software Design Documents (SDDs) — versioned, phased planning documents that record every project or feature Brace works on with Jesse. Use when starting a new project, feature, or significant task; when Jesse asks to "write up a plan", "document this", "create an SDD", or "make a design doc"; or when reviewing/updating an existing plan. SDDs live in workspace/SDD/ and are gitignored (private planning docs).
 ---
 
 # SDD — Software Design Documents
@@ -20,7 +20,7 @@ SDD-<NNNN>-<slug>.md
 - `NNNN` — zero-padded incrementing number (0001, 0002, …)
 - `slug` — short kebab-case title
 
-Examples: `SDD-0001-blizbot-setup.md`, `SDD-0002-dev-workflow-skills.md`
+Examples: `SDD-0001-bracebot-setup.md`, `SDD-0002-dev-workflow-skills.md`
 
 Find the next number by listing existing SDDs:
 ```bash
@@ -29,12 +29,22 @@ ls workspace/SDD/ | sort | tail -1
 
 ## Document Template
 
+Fetch the canonical versioned template from PromptRoot before starting a new SDD:
+
+```bash
+bash workspace/skills/promptroot/scripts/fetch-prompt.sh promptroot/promptroot main tutorial/templates/versioned-modular-sdd-plan
+```
+
+Fill in the `{PLACEHOLDER}` variables interactively with Jesse. The PromptRoot template includes conditional sections (unit tests, E2E tests, UI changes, etc.) — ask Jesse which to include.
+
+If the fetch fails (network/rate limit), fall back to the inline template below:
+
 ```markdown
 # SDD-NNNN: Title
 
-**Version:** 1.0  
-**Date:** YYYY-MM-DD  
-**Author:** Bliz  
+**Version:** 1.0
+**Date:** YYYY-MM-DD
+**Author:** Brace
 **Status:** Draft | In Progress | Complete
 
 ## Overview
@@ -54,7 +64,7 @@ Brief description of what this plan covers and why.
 
 ### Phase 1 — Name
 
-**Goal:** What this phase achieves  
+**Goal:** What this phase achieves
 **Tasks:**
 - [ ] Task 1
 - [ ] Task 2

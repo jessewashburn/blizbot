@@ -1,10 +1,10 @@
-# Blizbot — OpenClaw Workspace
+# Bracebot — OpenClaw Workspace
 
-This is the workspace for **Bliz** ⚡, a persistent AI assistant built on [OpenClaw](https://openclaw.ai), connected via Telegram (@Bl1zBot).
+This is the workspace for **Brace** ⚡, a persistent AI assistant built on [OpenClaw](https://openclaw.ai), connected via Telegram (@Bl1zBot).
 
 ## What is this repo?
 
-This repo contains the public-facing configuration, skills, and workspace templates for Bliz. Personal data (memory files, identity, user profile) is gitignored and stays local.
+This repo contains the public-facing configuration, skills, and workspace templates for Brace. Personal data (memory files, identity, user profile) is gitignored and stays local.
 
 ## Structure
 
@@ -29,7 +29,7 @@ This repo contains the public-facing configuration, skills, and workspace templa
 
 ## Skills
 
-Bliz uses [AgentSkills](https://agentskills.io)-compatible skills. Custom skills live in `workspace/skills/`. Install community skills via [ClawHub](https://clawhub.com):
+Brace uses [AgentSkills](https://agentskills.io)-compatible skills. Custom skills live in `workspace/skills/`. Install community skills via [ClawHub](https://clawhub.com):
 
 ```bash
 npx clawhub@latest install <skill-name>
@@ -48,16 +48,16 @@ All secrets are stored as env vars — nothing in plaintext. Required vars:
 
 ## Roadmap: PromptRoot × OpenClaw Integration
 
-Bliz is being integrated with [PromptRoot](https://github.com/promptroot/promptroot) — an AI prompt library and workflow platform. See [SDD-0002](workspace/SDD/SDD-0002-promptroot-openclaw-integration.md) (local) for the full plan.
+Brace is being integrated with [PromptRoot](https://github.com/promptroot/promptroot) — an AI prompt library and workflow platform. See [SDD-0002](workspace/SDD/SDD-0002-promptroot-openclaw-integration.md) (local) for the full plan.
 
 ### Planned integrations:
 
-- **PromptRoot skill** — Bliz fetches and executes prompts from the library by slug
-- **🦞 Run in Bliz button** — Send any PromptRoot prompt directly to Bliz from the UI
-- **SDD workflow** — Bliz pulls versioned SDD templates from PromptRoot, fills them interactively
-- **Web Clip summarization** — Browser extension captures → auto-summarized by Bliz → Telegram notification
-- **Agent-generated prompts** — Bliz auto-PRs reusable prompts discovered during sessions back to PromptRoot
-- **Queue execution** — PromptRoot queue items tagged `[bliz]` executed as Bliz sub-agent tasks
+- **PromptRoot skill** — Brace fetches and executes prompts from the library by slug
+- **🦞 Run in Brace button** — Send any PromptRoot prompt directly to Brace from the UI
+- **SDD workflow** — Brace pulls versioned SDD templates from PromptRoot, fills them interactively
+- **Web Clip summarization** — Browser extension captures → auto-summarized by Brace → Telegram notification
+- **Agent-generated prompts** — Brace auto-PRs reusable prompts discovered during sessions back to PromptRoot
+- **Queue execution** — PromptRoot queue items tagged `[brace]` executed as Brace sub-agent tasks
 
 ## Setup
 
