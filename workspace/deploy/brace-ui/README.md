@@ -17,8 +17,13 @@ fly launch --no-deploy --copy-config --name brace-ui
 fly volumes create brace_data --region iad --size 1
 
 # Set secrets (never commit these)
+#
+# Note: Open WebUI uses the OpenAI API format internally, so it calls its
+# bearer token variable OPENAI_API_KEY regardless of the underlying model.
+# The VALUE here is your OPENCLAW_GATEWAY_TOKEN — not an actual OpenAI key.
+# OpenClaw receives it, verifies it, then calls Anthropic/Claude as normal.
 fly secrets set \
-  OPENAI_API_KEY="<OPENCLAW_GATEWAY_TOKEN>" \
+  OPENAI_API_KEY="<your OPENCLAW_GATEWAY_TOKEN>" \
   OPENAI_API_BASE_URL="https://<your-cloudflare-tunnel-url>/v1" \
   WEBUI_SECRET_KEY="$(openssl rand -hex 32)"
 
