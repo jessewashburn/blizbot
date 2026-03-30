@@ -388,3 +388,47 @@ h1, h2, h3, h4 {
   font-weight: 600 !important;
   color: #f0f3f8 !important;
 }
+
+/* =====================================================================
+   EXACT RUNTIME FIXES (from live inspection 2026-03-30)
+   ===================================================================== */
+
+/* Sidebar panel — exact Tailwind class: bg-gray-50/70 dark:bg-gray-950/70
+   Tailwind v4 compiles this to oklab() — override with attribute selector */
+[class*="bg-gray-950\/70"],
+[class*="bg-gray-50\/70"],
+div[class*="h-screen"][class*="bg-gray-50"] {
+  background-color: #141829 !important;
+  backdrop-filter: none !important;
+}
+
+/* Sidebar: fix the text color that comes through on the panel */
+[class*="bg-gray-950\/70"] *,
+[class*="bg-gray-50\/70"] * {
+  color: #f0f3f8;
+}
+[class*="bg-gray-950\/70"] .text-gray-400,
+[class*="bg-gray-50\/70"] .text-gray-400 {
+  color: #a0a8bc !important;
+}
+
+/* Suggested prompts container — .mx-5 inside .mx-auto.max-w-2xl */
+.mx-auto.max-w-2xl .mx-5,
+.mx-auto.max-w-2xl > div > .mx-5 {
+  display: none !important;
+}
+
+/* Fallback: hide the "Suggested" label and its siblings */
+[class*="svelte-6tnq1o"] {
+  display: none !important;
+}
+
+/* Fix title: "Brace (Brace)" → remove the duplicate part via loader.js
+   (CSS can't fix this — handled in loader.js) */
+
+/* Input/prompt area: bg-white/5 dark:bg-gray-500/5 — already transparent, ok */
+/* But border could be more visible */
+[class*="bg-white\/5"],
+[class*="bg-gray-500\/5"] {
+  border-color: #222438 !important;
+}

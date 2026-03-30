@@ -48,9 +48,14 @@
         node.nodeValue = node.nodeValue.replace(/Open WebUI/g, 'Brace');
       }
     }
-    // Also fix document title
-    if (document.title && document.title.includes('Open WebUI')) {
+    // Fix document title — "Brace (Brace)" → "Brace", "X (Brace)" → "X | Brace"
+    if (document.title) {
+      // Remove "Open WebUI" occurrences
       document.title = document.title.replace(/Open WebUI/g, 'Brace');
+      // Remove duplicate "(Brace)" if it appears after "Brace"
+      document.title = document.title.replace(/\bBrace\s*\(Brace\)/g, 'Brace');
+      // Clean up "X (Brace)" → "X | Brace"
+      document.title = document.title.replace(/^(.+?)\s*\(Brace\)$/, '$1 | Brace');
     }
   };
 
