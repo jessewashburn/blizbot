@@ -1,11 +1,25 @@
 /*
- * Brace × PromptRoot Theme for Open WebUI v3.0
- * Forces dark navy regardless of system light/dark preference.
- * Targets both light and dark mode classes.
+ * Brace × PromptRoot Theme for Open WebUI v4.0
+ * Full PromptRoot design system — navy bg, cyan accent, Inter font
+ * Force-dark, direct selectors (Tailwind v4 compatible)
  */
 
 /* =====================================================================
-   FORCE DARK BASE
+   FONTS — Inter (PromptRoot primary)
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+code, pre, kbd, samp, .font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
+
+/* =====================================================================
+   BASE — Force dark navy
    ===================================================================== */
 
 html, html.light, html.dark {
@@ -19,136 +33,279 @@ body {
 }
 
 /* =====================================================================
-   SIDEBAR
+   BACKGROUNDS — Map all OWUI grays to PromptRoot palette
    ===================================================================== */
 
-/* Sidebar background */
-.bg-gray-50,
-.bg-gray-100,
-.bg-gray-200,
-.dark\:bg-gray-850,
-.dark\:bg-gray-900,
-.dark\:bg-gray-950 {
-  background-color: #141829 !important;
-}
-
-/* Sidebar hover states */
-.hover\:bg-gray-100:hover,
-.hover\:bg-gray-50:hover,
-.dark\:hover\:bg-gray-850:hover,
-.dark\:hover\:bg-gray-900:hover,
-.dark\:hover\:bg-gray-950:hover {
-  background-color: #1a1f35 !important;
-}
-
-/* =====================================================================
-   MAIN CONTENT / CHAT AREA
-   ===================================================================== */
-
-.bg-white,
-.dark\:bg-gray-800,
-.dark\:bg-gray-900 {
+/* Primary bg — deepest layer */
+.bg-gray-950, .dark\:bg-gray-950,
+.hover\:bg-gray-950:hover, .dark\:hover\:bg-gray-950:hover,
+.bg-gray-900, .dark\:bg-gray-900,
+.hover\:bg-gray-900:hover, .dark\:hover\:bg-gray-900:hover {
   background-color: #0a0e1a !important;
 }
 
-/* Chat input */
-.bg-gray-100,
-.dark\:bg-gray-850 {
+/* Surface — sidebar, panels, cards */
+.bg-gray-850, .dark\:bg-gray-850,
+.hover\:bg-gray-850:hover, .dark\:hover\:bg-gray-850:hover,
+.bg-gray-800, .dark\:bg-gray-800,
+.hover\:bg-gray-800:hover, .dark\:hover\:bg-gray-800:hover {
   background-color: #141829 !important;
 }
 
+/* Surface elevated — hover, secondary panels */
+.bg-gray-700, .dark\:bg-gray-700,
+.hover\:bg-gray-700:hover, .dark\:hover\:bg-gray-700:hover {
+  background-color: #1a1f35 !important;
+}
+
+/* Borders / dividers */
+.bg-gray-600, .dark\:bg-gray-600,
+.hover\:bg-gray-600:hover, .dark\:hover\:bg-gray-600:hover {
+  background-color: #222438 !important;
+}
+
+/* Light grays — inputs, chips in light mode */
+.bg-gray-100, .bg-gray-50 {
+  background-color: #141829 !important;
+}
+.hover\:bg-gray-100:hover, .hover\:bg-gray-50:hover {
+  background-color: #1a1f35 !important;
+}
+
+/* White backgrounds (modals, popovers, inputs) */
+.bg-white, .dark\:bg-white {
+  background-color: #141829 !important;
+}
+
+/* Opacity variants */
+.dark\:bg-gray-900\/50 { background-color: rgba(10,14,26,0.5) !important; }
+.dark\:bg-gray-900\/80 { background-color: rgba(10,14,26,0.8) !important; }
+.dark\:bg-gray-900\/95 { background-color: rgba(10,14,26,0.95) !important; }
+.dark\:bg-gray-850\/80 { background-color: rgba(20,24,41,0.8) !important; }
+.dark\:bg-gray-850\/90 { background-color: rgba(20,24,41,0.9) !important; }
+
 /* =====================================================================
-   TEXT COLORS
+   TEXT
    ===================================================================== */
 
-.text-gray-800,
-.text-gray-900,
-.dark\:text-gray-100,
-.dark\:text-white {
+.text-black, .text-gray-900, .text-gray-800,
+.dark\:text-white, .dark\:text-gray-100, .dark\:text-gray-200 {
   color: #f0f3f8 !important;
 }
 
-.text-gray-500,
-.text-gray-600,
-.dark\:text-gray-400,
-.dark\:text-gray-500 {
-  color: #8b94a8 !important;
-}
-
-.text-gray-300,
-.text-gray-400,
+.text-gray-700, .text-gray-600,
 .dark\:text-gray-300 {
   color: #c8cfe0 !important;
 }
 
+.text-gray-500, .text-gray-400,
+.dark\:text-gray-400, .dark\:text-gray-500 {
+  color: #8b94a8 !important;
+}
+
+/* White text on dark surfaces */
+.dark\:text-gray-600, .dark\:text-gray-700 {
+  color: #6b7499 !important;
+}
+
 /* =====================================================================
-   BORDERS & OUTLINES
+   BORDERS
    ===================================================================== */
 
-.border-gray-100,
-.border-gray-200,
-.dark\:border-gray-700,
-.dark\:border-gray-800,
-.dark\:border-gray-850 {
+.border-gray-100, .border-gray-200,
+.dark\:border-gray-700, .dark\:border-gray-800,
+.dark\:border-gray-850, .dark\:border-gray-900 {
   border-color: #222438 !important;
 }
 
-.outline-gray-100,
-.outline-gray-200,
-.dark\:outline-gray-700,
-.dark\:outline-gray-800,
+.border-gray-300, .dark\:border-gray-600 {
+  border-color: #2a2d4a !important;
+}
+
+.outline-gray-100, .outline-gray-200,
+.dark\:outline-gray-700, .dark\:outline-gray-800,
 .dark\:outline-gray-850 {
   outline-color: #222438 !important;
 }
 
 /* =====================================================================
-   ACCENT — Replace OWUI blue with PromptRoot cyan
+   ACCENT — PromptRoot cyan #4dd9ff replacing OWUI blue
    ===================================================================== */
 
-.bg-blue-500,
-.bg-blue-600,
-.dark\:bg-blue-600 {
+/* Primary buttons */
+.bg-blue-500, .bg-blue-600,
+.dark\:bg-blue-600,
+.peer-checked\:bg-blue-600 {
   background-color: #4dd9ff !important;
   color: #0a0e1a !important;
 }
+.hover\:bg-blue-600:hover, .dark\:hover\:bg-black\/90:hover {
+  background-color: #5ad1ff !important;
+}
 
-.text-blue-400,
-.text-blue-500,
-.dark\:text-blue-300,
-.dark\:text-blue-400 {
+/* Accent text */
+.text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
+.dark\:text-blue-300, .dark\:text-blue-400,
+.hover\:text-blue-300:hover, .hover\:text-blue-900:hover {
   color: #4dd9ff !important;
+}
+
+/* Accent borders */
+.border-blue-500, .border-blue-600,
+.dark\:border-blue-600 {
+  border-color: #4dd9ff !important;
+}
+
+/* Focus rings */
+.focus\:ring-blue-500:focus,
+.dark\:ring-blue-500,
+.dark\:focus\:border-blue-500:focus {
+  --tw-ring-color: rgba(77,217,255,0.4) !important;
+  border-color: #4dd9ff !important;
+}
+
+/* Toggle switch */
+.peer-checked\:bg-blue-600:has(:checked) {
+  background-color: #4dd9ff !important;
+}
+
+/* =====================================================================
+   INPUTS & FORMS
+   ===================================================================== */
+
+input:not([type="range"]),
+textarea,
+select {
+  background-color: #141829 !important;
+  color: #f0f3f8 !important;
+  border-color: #222438 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #4dd9ff !important;
+  outline-color: #4dd9ff !important;
+  box-shadow: 0 0 0 2px rgba(77,217,255,0.15) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #8b94a8 !important;
 }
 
 /* =====================================================================
    SCROLLBAR
    ===================================================================== */
 
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background-color: #222438 !important;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8b94a8 !important;
 }
 
 /* =====================================================================
-   MODAL / POPOVER / DROPDOWN
+   CODE BLOCKS
    ===================================================================== */
 
-.bg-white.rounded-xl,
-.bg-white.rounded-2xl,
-.bg-white.rounded-lg,
-[class*="dark:bg-gray-850"],
-[class*="dark:bg-gray-900"] {
-  background-color: #141829 !important;
+pre, .hljs, code {
+  background-color: #0d1121 !important;
+  color: #e0e5f0 !important;
+  border: 1px solid #222438 !important;
 }
 
 /* =====================================================================
-   INPUTS / TEXTAREAS
+   GRADIENTS (sidebar/chat fades)
    ===================================================================== */
 
-input, textarea, select {
-  background-color: #141829 !important;
+.dark\:from-gray-900, .dark\:from-gray-950 {
+  --tw-gradient-from: #0a0e1a !important;
+}
+.dark\:to-gray-900, .dark\:to-gray-900\/90 {
+  --tw-gradient-to: #0a0e1a !important;
+}
+.dark\:via-gray-900 {
+  --tw-gradient-via: #0a0e1a !important;
+}
+.from-gray-50, .from-gray-100 {
+  --tw-gradient-from: #141829 !important;
+}
+.to-white {
+  --tw-gradient-to: #141829 !important;
+}
+
+/* =====================================================================
+   CHAT MESSAGES
+   ===================================================================== */
+
+/* User message bubble */
+.dark\:bg-gray-700\/20 { background-color: rgba(26,31,53,0.4) !important; }
+.dark\:bg-gray-800\/50 { background-color: rgba(20,24,41,0.5) !important; }
+
+/* =====================================================================
+   LOGO — Replace OWUI logo with PromptRoot
+   Hide the default "Open WebUI" or "Brace" text logo, inject SVG
+   ===================================================================== */
+
+/* Hide OWUI's default splash/logo image */
+#logo {
+  display: none !important;
+}
+
+/* =====================================================================
+   LOGIN PAGE — Fix branding + button visibility
+   ===================================================================== */
+
+/* Hide "(Open WebUI)" from the signin title — replace via content trick */
+/* The title reads "Sign in to Brace (Open WebUI)" — hide the parens part */
+h1, h2 {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
   color: #f0f3f8 !important;
-  border-color: #222438 !important;
 }
 
-input::placeholder, textarea::placeholder {
-  color: #8b94a8 !important;
+/* Sign in button — ensure it's visible with cyan */
+button[type="submit"],
+button.btn-primary,
+.btn-primary,
+form button {
+  background-color: #4dd9ff !important;
+  color: #0a0e1a !important;
+  font-weight: 600 !important;
+  border: none !important;
+}
+
+form button:hover {
+  background-color: #5ad1ff !important;
+}
+
+/* All buttons that OWUI renders as dark/filled */
+button.w-full,
+button[class*="bg-black"],
+button[class*="dark:bg-gray"] {
+  background-color: #4dd9ff !important;
+  color: #0a0e1a !important;
+  border: none !important;
+}
+
+/* =====================================================================
+   MISC UI POLISH
+   ===================================================================== */
+
+/* Tooltips */
+.tippy-box[data-theme~=dark] {
+  background-color: #1a1f35 !important;
+  border-color: #222438 !important;
+  color: #f0f3f8 !important;
+}
+
+/* Tags / badges */
+.bg-gray-500\/20 { background-color: rgba(34,36,56,0.6) !important; }
+.bg-gray-700\/50 { background-color: rgba(26,31,53,0.5) !important; }
+
+/* Selection highlight */
+::selection {
+  background-color: rgba(77,217,255,0.2) !important;
+  color: #f0f3f8 !important;
 }
