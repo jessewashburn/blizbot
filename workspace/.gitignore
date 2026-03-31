@@ -10,3 +10,11 @@ SDD/
 
 # OpenClaw internal state
 .openclaw/
+
+# Secrets — never commit these
+.env
+.env.*
+*.env
+secrets.*
+*_secret*
+*_token*
