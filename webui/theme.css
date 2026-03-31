@@ -95,6 +95,14 @@ code, pre, kbd, samp,
   background-color: var(--card) !important;
 }
 
+/* Popup/dropdown panels (bg-white dark:bg-gray-850 with border+shadow)
+   Need to be darker than var(--card-raised) so hover is visible.
+   Target: panels with border AND shadow AND bg-gray-850 */
+[class*="dark:bg-gray-850"][class*="border"][class*="shadow"],
+[class*="dark:bg-gray-850"][class*="rounded"][class*="z-50"] {
+  background-color: var(--bg-deep) !important;
+}
+
 /* Raised surfaces */
 .bg-gray-700, .dark\:bg-gray-700 {
   background-color: var(--card-raised) !important;
