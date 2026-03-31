@@ -1,455 +1,410 @@
 /*
- * Brace × PromptRoot Theme for Open WebUI v5.1
- * Full PromptRoot design system — navy bg, cyan accent, Inter font
- * Force-dark, direct selectors (Tailwind v4 compatible)
+ * Brace × PromptRoot Theme — Open WebUI
+ * Aligned with PromptRoot UI Guidelines v2.0
  *
- * v5.1 fixes:
- * 1e) sidebar history hover: white-on-white → readable
- * 1f) Folders/Chats buttons: text-only cyan, no filled bg
- * 1g) model selector: text-only, not cyan filled
- * favicon: handled via Dockerfile COPY
- * 1i) submenu hover effects restored
+ * Architecture:
+ *   1. Design Tokens (CSS Variables) — single source of truth
+ *   2. Base overrides — html/body/dark mode
+ *   3. Layout — backgrounds, sidebar, main containers
+ *   4. Typography — text, headings
+ *   5. Borders
+ *   6. Hover & interactive states (universal)
+ *   7. Buttons & accents
+ *   8. Inputs & forms
+ *   9. Code blocks
+ *  10. Scrollbar
+ *  11. Utilities (selection, suggestions, gradient helpers)
+ *  12. Font import
+ *
+ * No hard-coded hex values outside of :root.
+ * Uses var(--token) everywhere below the :root block.
  */
 
-/* =====================================================================
-   FONTS — Inter (PromptRoot primary)
-   ===================================================================== */
+/* ===================================================================
+   1. DESIGN TOKENS
+   Source: PromptRoot UI Guidelines base.css
+   =================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+:root {
+  /* Core palette */
+  --bg:           #0a0e1a;
+  --bg-deep:      #0d1121;
+  --card:         #141829;
+  --card-raised:  #1a1f35;
+  --surface:      #222438;
+  --surface-high: #2a2d4a;
+
+  /* Text */
+  --text:         #f0f3f8;
+  --text-muted:   #c8cfe0;
+  --muted:        #a0a8bc;
+  --muted-deep:   #8b94a8;
+
+  /* Accent */
+  --accent:       #4dd9ff;
+  --accent-hover: #5ad1ff;
+  --accent-glow:  rgba(77, 217, 255, 0.15);
+
+  /* Semantic */
+  --danger:       #c0504d;
+  --warn:         #f39c12;
+  --success:      #27ae60;
+
+  /* Border */
+  --border:       #222438;
+  --border-high:  #2a2d4a;
+
+  /* Font */
+  --font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+
+/* ===================================================================
+   2. BASE — Force dark mode; apply tokens globally
+   =================================================================== */
+
+html, html.light, html.dark, body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
 
 * {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-family: var(--font-sans) !important;
 }
 
-code, pre, kbd, samp, .font-mono, [class*="font-mono"] {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+code, pre, kbd, samp,
+.font-mono, [class*="font-mono"] {
+  font-family: var(--font-mono) !important;
 }
 
-/* =====================================================================
-   BASE — Force dark navy on everything
-   ===================================================================== */
 
-html, html.light, html.dark {
-  background-color: #0a0e1a !important;
-  color: #f0f3f8 !important;
-}
+/* ===================================================================
+   3. LAYOUT — Backgrounds mapped from Tailwind gray scale
+   =================================================================== */
 
-body {
-  background-color: #0a0e1a !important;
-  color: #f0f3f8 !important;
-}
-
-/* =====================================================================
-   BACKGROUNDS — Gray scale → PromptRoot palette
-   ===================================================================== */
-
+/* Darkest surfaces */
 .bg-gray-950, .dark\:bg-gray-950,
 .bg-gray-900, .dark\:bg-gray-900 {
-  background-color: #0d1121 !important;
+  background-color: var(--bg-deep) !important;
 }
 
+/* Mid surfaces */
 .bg-gray-850, .dark\:bg-gray-850,
 .bg-gray-800, .dark\:bg-gray-800 {
-  background-color: #141829 !important;
+  background-color: var(--card) !important;
 }
 
+/* Raised surfaces */
 .bg-gray-700, .dark\:bg-gray-700 {
-  background-color: #1a1f35 !important;
+  background-color: var(--card-raised) !important;
 }
 
+/* Borders/dividers used as bg */
 .bg-gray-600, .dark\:bg-gray-600 {
-  background-color: #222438 !important;
+  background-color: var(--surface) !important;
 }
 
+/* Light-mode classes rendered dark */
+.bg-white, .dark\:bg-white,
 .bg-gray-50, .bg-gray-100 {
-  background-color: #141829 !important;
-}
-
-.bg-white, .dark\:bg-white {
-  background-color: #0a0e1a !important;
+  background-color: var(--bg) !important;
 }
 
 /* Opacity variants */
-.dark\:bg-gray-900\/50 { background-color: rgba(13,17,33,0.5) !important; }
-.dark\:bg-gray-900\/80 { background-color: rgba(13,17,33,0.8) !important; }
-.dark\:bg-gray-900\/95 { background-color: rgba(13,17,33,0.95) !important; }
-.dark\:bg-gray-850\/80 { background-color: rgba(20,24,41,0.8) !important; }
-.dark\:bg-gray-850\/90 { background-color: rgba(20,24,41,0.9) !important; }
-.dark\:bg-gray-700\/20 { background-color: rgba(26,31,53,0.4) !important; }
-.dark\:bg-gray-800\/50 { background-color: rgba(20,24,41,0.5) !important; }
-.dark\:bg-white\/5 { background-color: rgba(255,255,255,0.05) !important; }
+.dark\:bg-gray-900\/50  { background-color: rgba(13,17,33,0.50) !important; }
+.dark\:bg-gray-900\/80  { background-color: rgba(13,17,33,0.80) !important; }
+.dark\:bg-gray-900\/95  { background-color: rgba(13,17,33,0.95) !important; }
+.dark\:bg-gray-850\/80  { background-color: rgba(20,24,41,0.80) !important; }
+.dark\:bg-gray-850\/90  { background-color: rgba(20,24,41,0.90) !important; }
+.dark\:bg-gray-800\/50  { background-color: rgba(20,24,41,0.50) !important; }
+.dark\:bg-gray-700\/20  { background-color: rgba(26,31,53,0.40) !important; }
+.dark\:bg-white\/5      { background-color: rgba(255,255,255,0.05) !important; }
 
-/* =====================================================================
-   SIDEBAR HOVER STATES — Fix 1e: white-on-white hover
-   Use clearly visible surface-elevated (#1a1f35) for ALL hover/active states
-   ===================================================================== */
-
-/* Hover states on gray backgrounds */
-.hover\:bg-gray-100:hover,
-.hover\:bg-gray-50:hover,
-.hover\:bg-gray-900:hover,
-.hover\:bg-gray-950:hover,
-.hover\:bg-gray-800:hover,
-.hover\:bg-gray-850:hover,
-.hover\:bg-gray-700:hover,
-.dark\:hover\:bg-gray-850:hover,
-.dark\:hover\:bg-gray-900:hover,
-.dark\:hover\:bg-gray-950:hover,
-.dark\:hover\:bg-gray-800:hover,
-.dark\:hover\:bg-gray-700:hover,
-.dark\:hover\:bg-white\/5:hover,
-.dark\:hover\:bg-gray-800\/50:hover {
-  background-color: #1a1f35 !important;
+/* Sidebar panel — Tailwind v4 compiles bg-gray-50/70 dark:bg-gray-950/70
+   to oklab(). Only attribute selectors survive as overrides. */
+[class*="bg-gray-950\/70"],
+[class*="bg-gray-50\/70"],
+div[class*="h-screen"][class*="bg-gray-50"] {
+  background-color: var(--card) !important;
+  backdrop-filter: none !important;
 }
 
-/* Active / selected state */
-.dark\:bg-gray-850,
-.dark\:bg-gray-800\/50,
-.dark\:bg-white\/5 {
-  background-color: #1a1f35 !important;
+/* Input/prompt bar */
+[class*="bg-white\/5"],
+[class*="bg-gray-500\/5"] {
+  border-color: var(--border) !important;
 }
 
-/* Hover on white backgrounds (modals, popovers) */
-.hover\:bg-white:hover,
-.dark\:hover\:bg-white:hover {
-  background-color: #1a1f35 !important;
-}
 
-/* =====================================================================
-   SUBMENU / DROPDOWN HOVER — Fix 1i: no hover effects in submenus
-   ===================================================================== */
+/* ===================================================================
+   4. TYPOGRAPHY
+   =================================================================== */
 
-/* All dropdown/menu items need visible hover */
-[role="menuitem"]:hover,
-[role="option"]:hover,
-.dropdown-item:hover,
-li:hover > a,
-li:hover > button {
-  background-color: #1a1f35 !important;
-}
-
-/* OWUI uses these patterns for dropdown items */
-.hover\:bg-gray-50\/50:hover,
-.dark\:hover\:bg-gray-800\/30:hover,
-.dark\:hover\:bg-gray-900\/50:hover {
-  background-color: #1a1f35 !important;
-}
-
-/* =====================================================================
-   TEXT — High contrast
-   ===================================================================== */
-
+/* Primary text */
 .text-black, .text-gray-900, .text-gray-800,
 .dark\:text-white, .dark\:text-gray-100, .dark\:text-gray-200,
 .text-gray-700 {
-  color: #f0f3f8 !important;
+  color: var(--text) !important;
 }
 
+/* Secondary text */
 .text-gray-600, .text-gray-500,
 .dark\:text-gray-300 {
-  color: #c8cfe0 !important;
+  color: var(--text-muted) !important;
 }
 
-.text-gray-400, .text-gray-500,
+/* Muted text */
+.text-gray-400,
 .dark\:text-gray-400, .dark\:text-gray-500 {
-  color: #a0a8bc !important;
+  color: var(--muted) !important;
 }
 
+/* Deep-muted */
 .dark\:text-gray-600, .dark\:text-gray-700 {
-  color: #8b94a8 !important;
+  color: var(--muted-deep) !important;
 }
 
-/* =====================================================================
-   BORDERS
-   ===================================================================== */
+/* Accent text */
+.text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
+.dark\:text-blue-300, .dark\:text-blue-400,
+.hover\:text-blue-300:hover, .hover\:text-blue-900:hover {
+  color: var(--accent) !important;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+}
+
+
+/* ===================================================================
+   5. BORDERS
+   =================================================================== */
 
 .border-gray-100, .border-gray-200,
 .dark\:border-gray-700, .dark\:border-gray-800,
 .dark\:border-gray-850, .dark\:border-gray-900 {
-  border-color: #222438 !important;
+  border-color: var(--border) !important;
 }
 
 .border-gray-300, .dark\:border-gray-600 {
-  border-color: #2a2d4a !important;
+  border-color: var(--border-high) !important;
 }
 
 .outline-gray-100, .outline-gray-200,
 .dark\:outline-gray-700, .dark\:outline-gray-800,
 .dark\:outline-gray-850 {
-  outline-color: #222438 !important;
+  outline-color: var(--border) !important;
 }
 
-/* =====================================================================
-   BUTTONS — Layered approach:
-   - Submit/Send/primary action → cyan filled
-   - Text-only buttons (Folders, Chats, model selector) → NO fill, text cyan
-   - Toggle/toggle switches → cyan
-   ===================================================================== */
+.border-blue-500, .border-blue-600, .dark\:border-blue-600 {
+  border-color: var(--accent) !important;
+}
 
-/* 1. Primary filled buttons — submit, send */
+.focus\:ring-blue-500:focus,
+.dark\:ring-blue-500,
+.dark\:focus\:border-blue-500:focus {
+  --tw-ring-color: var(--accent-glow) !important;
+  border-color: var(--accent) !important;
+}
+
+
+/* ===================================================================
+   6. HOVER & INTERACTIVE STATES
+   Universal: every hover:bg-gray-* variant from compiled OWUI JS.
+   Full list: gray-{50,100,200,300,600,700,800,850,900,950} + /n.
+   Attribute selectors override Tailwind v4's baked oklab() values.
+   =================================================================== */
+
+[class*="hover:bg-gray-"]:hover,
+[class*="dark:hover:bg-gray-"]:hover {
+  background-color: var(--card-raised) !important;
+}
+
+/* Tippy.js dropdowns — portaled to <body>, same Tailwind classes inside */
+.tippy-box[data-theme~=dark] [class*="hover:bg-gray-"]:hover,
+.tippy-box[data-theme~=dark] [class*="dark:hover:bg-gray-"]:hover,
+[data-tippy-root] [class*="hover:bg-gray-"]:hover,
+[data-tippy-root] [class*="dark:hover:bg-gray-"]:hover {
+  background-color: var(--card-raised) !important;
+}
+
+/* Active / selected sidebar items */
+.dark\:bg-gray-850,
+.dark\:bg-gray-800\/50,
+.dark\:bg-white\/5 {
+  background-color: var(--card-raised) !important;
+}
+
+/* Hover on white-bg elements (modals, popovers in light mode) */
+.hover\:bg-white:hover,
+.dark\:hover\:bg-white:hover {
+  background-color: var(--card-raised) !important;
+}
+
+/* Tippy box itself */
+.tippy-box[data-theme~=dark] {
+  background-color: var(--card) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+
+/* ===================================================================
+   7. BUTTONS & ACCENT
+   - Primary/submit/send → filled cyan (--accent)
+   - Blue-class buttons → filled cyan
+   - Sidebar action buttons (bg-black) → text-only
+   - Model selector → transparent, neutral text
+   - Toggle switches → cyan
+   =================================================================== */
+
+/* Primary action buttons */
 button[type="submit"],
 button[aria-label*="Send"],
-button#send-message-button {
-  background-color: #4dd9ff !important;
-  color: #0a0e1a !important;
+button#send-message-button,
+form button[type="submit"] {
+  background-color: var(--accent) !important;
+  color: var(--bg) !important;
   font-weight: 600 !important;
   border: none !important;
 }
 
 button[type="submit"]:hover,
 button#send-message-button:hover,
-button[aria-label*="Send"]:hover {
-  background-color: #5ad1ff !important;
+button[aria-label*="Send"]:hover,
+form button[type="submit"]:hover {
+  background-color: var(--accent-hover) !important;
 }
 
-/* 2. Blue accent buttons in general */
-.bg-blue-500, .bg-blue-600,
-.dark\:bg-blue-600 {
-  background-color: #4dd9ff !important;
-  color: #0a0e1a !important;
+/* General blue → accent */
+.bg-blue-500, .bg-blue-600, .dark\:bg-blue-600 {
+  background-color: var(--accent) !important;
+  color: var(--bg) !important;
 }
 
-.hover\:bg-blue-600:hover,
-.hover\:bg-blue-700:hover {
-  background-color: #5ad1ff !important;
-  color: #0a0e1a !important;
+.hover\:bg-blue-600:hover, .hover\:bg-blue-700:hover {
+  background-color: var(--accent-hover) !important;
+  color: var(--bg) !important;
 }
 
-/* 3. Fix 1f: Folders/Chats/New Chat buttons — remove background fill,
-   keep them as text-only with cyan color.
-   These are the "dark bg" buttons in the sidebar header area */
-
-/* The new chat button and sidebar action buttons */
-.bg-black, .dark\:bg-black {
-  background-color: transparent !important;
-  color: #4dd9ff !important;
-}
-
+/* Sidebar icon/action buttons that OWUI renders as bg-black */
 button.bg-black, button.dark\:bg-black,
 button[class*="bg-black"] {
   background-color: transparent !important;
-  color: #4dd9ff !important;
-  border: 1px solid #222438 !important;
+  color: var(--accent) !important;
+  border: 1px solid var(--border) !important;
 }
 
 button.bg-black:hover, button[class*="bg-black"]:hover {
-  background-color: #1a1f35 !important;
-  color: #4dd9ff !important;
+  background-color: var(--card-raised) !important;
+  color: var(--accent) !important;
 }
 
-/* 4. Fix 1g: Model selector dropdown — text-only, not filled.
-   OWUI model selector uses dark bg buttons in the chat header */
+/* Model selector trigger — no fill, neutral text */
 #model-selector-button,
 [id*="model-selector"],
 button[class*="model-selector"],
-.model-selector button {
+.model-selector button,
+.dark\:hover\:bg-black\/90:hover {
   background-color: transparent !important;
-  color: #f0f3f8 !important;
+  color: var(--text) !important;
   border: none !important;
 }
 
-/* Override any cyan fill that might be landing on the model dropdown trigger */
-.dark\:hover\:bg-black\/90:hover {
-  background-color: #1a1f35 !important;
-  color: #f0f3f8 !important;
-}
-
-/* 5. Accent text */
-.text-blue-400, .text-blue-500, .text-blue-600, .text-blue-700,
-.dark\:text-blue-300, .dark\:text-blue-400,
-.hover\:text-blue-300:hover, .hover\:text-blue-900:hover {
-  color: #4dd9ff !important;
-}
-
-/* 6. Accent borders + focus rings */
-.border-blue-500, .border-blue-600, .dark\:border-blue-600 {
-  border-color: #4dd9ff !important;
-}
-
-.focus\:ring-blue-500:focus,
-.dark\:ring-blue-500,
-.dark\:focus\:border-blue-500:focus {
-  --tw-ring-color: rgba(77,217,255,0.4) !important;
-  border-color: #4dd9ff !important;
-}
-
-/* 7. Toggle switches */
+/* Toggle switches */
 .peer-checked\:bg-blue-600:has(:checked),
 .peer:checked ~ .peer-checked\:bg-blue-600 {
-  background-color: #4dd9ff !important;
+  background-color: var(--accent) !important;
 }
 
-/* =====================================================================
-   INPUTS & FORMS
-   ===================================================================== */
+
+/* ===================================================================
+   8. INPUTS & FORMS
+   =================================================================== */
 
 input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
 textarea,
 select {
-  background-color: #141829 !important;
-  color: #f0f3f8 !important;
-  border-color: #222438 !important;
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
 }
 
 input:focus:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
 textarea:focus,
 select:focus {
-  border-color: #4dd9ff !important;
-  outline-color: #4dd9ff !important;
-  box-shadow: 0 0 0 2px rgba(77,217,255,0.15) !important;
+  border-color: var(--accent) !important;
+  outline-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px var(--accent-glow) !important;
 }
 
 input::placeholder, textarea::placeholder {
-  color: #8b94a8 !important;
+  color: var(--muted-deep) !important;
 }
 
-/* =====================================================================
-   SCROLLBAR
-   ===================================================================== */
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background-color: #222438 !important;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: #8b94a8 !important;
-}
-
-/* =====================================================================
-   CODE BLOCKS
-   ===================================================================== */
+/* ===================================================================
+   9. CODE BLOCKS
+   =================================================================== */
 
 pre, .hljs, code {
-  background-color: #0d1121 !important;
-  color: #e0e5f0 !important;
-  border: 1px solid #222438 !important;
+  background-color: var(--bg-deep) !important;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border) !important;
 }
 
-/* =====================================================================
-   GRADIENTS (sidebar/chat fades)
-   ===================================================================== */
 
-.dark\:from-gray-900, .dark\:from-gray-950 {
-  --tw-gradient-from: #0a0e1a !important;
-}
-.dark\:to-gray-900, .dark\:to-gray-900\/90 {
-  --tw-gradient-to: #0a0e1a !important;
-}
-.dark\:via-gray-900 { --tw-gradient-via: #0a0e1a !important; }
-.from-gray-50, .from-gray-100 { --tw-gradient-from: #141829 !important; }
-.to-white { --tw-gradient-to: #141829 !important; }
+/* ===================================================================
+   10. SCROLLBAR
+   =================================================================== */
 
-/* =====================================================================
-   SUGGESTED PROMPTS — Hidden
-   ===================================================================== */
+::-webkit-scrollbar              { width: 6px; height: 6px; }
+::-webkit-scrollbar-track        { background: transparent; }
+::-webkit-scrollbar-thumb        { background-color: var(--border) !important; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover  { background-color: var(--muted) !important; }
 
-.suggestion,
-[class*="suggestion"],
-[class*="Suggestion"],
-[class*="prompt-suggestion"],
-[class*="promptSuggestion"] {
-  display: none !important;
-}
 
-/* =====================================================================
-   MISC UI POLISH
-   ===================================================================== */
+/* ===================================================================
+   11. UTILITIES
+   =================================================================== */
 
-/* Login page */
-form button[type="submit"] {
-  background-color: #4dd9ff !important;
-  color: #0a0e1a !important;
-  font-weight: 600 !important;
-}
-form button[type="submit"]:hover { background-color: #5ad1ff !important; }
-
-/* Tooltips */
-.tippy-box[data-theme~=dark] {
-  background-color: #1a1f35 !important;
-  border-color: #222438 !important;
-  color: #f0f3f8 !important;
-}
-
-/* Tags / badges */
-.bg-gray-500\/20 { background-color: rgba(34,36,56,0.6) !important; }
-.bg-gray-700\/50 { background-color: rgba(26,31,53,0.5) !important; }
-
-/* Selection highlight */
-::selection {
-  background-color: rgba(77,217,255,0.2) !important;
-  color: #f0f3f8 !important;
-}
-
-/* Headings */
-h1, h2, h3, h4 {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600 !important;
-  color: #f0f3f8 !important;
-}
-
-/* =====================================================================
-   EXACT RUNTIME FIXES (from live inspection 2026-03-30)
-   ===================================================================== */
-
-/* Sidebar panel — exact Tailwind class: bg-gray-50/70 dark:bg-gray-950/70
-   Tailwind v4 compiles this to oklab() — override with attribute selector */
-[class*="bg-gray-950\/70"],
-[class*="bg-gray-50\/70"],
-div[class*="h-screen"][class*="bg-gray-50"] {
-  background-color: #141829 !important;
-  backdrop-filter: none !important;
-}
-
-/* Sidebar: fix the text color that comes through on the panel */
-[class*="bg-gray-950\/70"] *,
-[class*="bg-gray-50\/70"] * {
-  color: #f0f3f8;
-}
-[class*="bg-gray-950\/70"] .text-gray-400,
-[class*="bg-gray-50\/70"] .text-gray-400 {
-  color: #a0a8bc !important;
-}
-
-/* Suggested prompts container — .mx-5 inside .mx-auto.max-w-2xl */
+/* Suggested prompts — hidden per Jesse's request */
 .mx-auto.max-w-2xl .mx-5,
-.mx-auto.max-w-2xl > div > .mx-5 {
-  display: none !important;
-}
-
-/* Fallback: hide the "Suggested" label and its siblings */
+.mx-auto.max-w-2xl > div > .mx-5,
 [class*="svelte-6tnq1o"] {
   display: none !important;
 }
 
-/* Fix title: "Brace (Brace)" → remove the duplicate part via loader.js
-   (CSS can't fix this — handled in loader.js) */
+/* Gradient helpers */
+.dark\:from-gray-900, .dark\:from-gray-950 { --tw-gradient-from: var(--bg) !important; }
+.dark\:to-gray-900, .dark\:to-gray-900\/90  { --tw-gradient-to:   var(--bg) !important; }
+.dark\:via-gray-900                          { --tw-gradient-via:  var(--bg) !important; }
+.from-gray-50, .from-gray-100               { --tw-gradient-from: var(--card) !important; }
+.to-white                                   { --tw-gradient-to:   var(--card) !important; }
 
-/* Input/prompt area: bg-white/5 dark:bg-gray-500/5 — already transparent, ok */
-/* But border could be more visible */
-[class*="bg-white\/5"],
-[class*="bg-gray-500\/5"] {
-  border-color: #222438 !important;
+/* Tag / badge tints */
+.bg-gray-500\/20  { background-color: rgba(34,36,56,0.6)  !important; }
+.bg-gray-700\/50  { background-color: rgba(26,31,53,0.5)  !important; }
+
+/* Text selection */
+::selection {
+  background-color: var(--accent-glow) !important;
+  color: var(--text) !important;
 }
 
-/* =====================================================================
-   ALL HOVER STATES — Complete coverage (v5.4)
-   Full list extracted from compiled JS bundles.
-   Attribute selectors override Tailwind v4 baked oklab() values.
-   ===================================================================== */
-
-/* Every hover:bg-gray-* variant used in OWUI */
-[class*="hover:bg-gray-"]:hover,
-[class*="dark:hover:bg-gray-"]:hover {
-  background-color: #1a1f35 !important;
+/* Tooltips */
+.tippy-box[data-theme~=dark] {
+  background-color: var(--card-raised) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
 }
 
-/* Tippy.js dropdowns — these are appended to <body> and use
-   the same Tailwind hover classes inside .tippy-box[data-theme=dark] */
-.tippy-box[data-theme~=dark] [class*="hover:bg-gray-"]:hover,
-.tippy-box[data-theme~=dark] [class*="dark:hover:bg-gray-"]:hover,
-[data-tippy-root] [class*="hover:bg-gray-"]:hover,
-[data-tippy-root] [class*="dark:hover:bg-gray-"]:hover {
-  background-color: #1a1f35 !important;
-}
+
+/* ===================================================================
+   12. FONT IMPORT
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
