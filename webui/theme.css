@@ -213,13 +213,23 @@ h1, h2, h3, h4 {
 
 /* ===================================================================
    6. HOVER & INTERACTIVE STATES
-   Universal: every hover:bg-gray-* variant from compiled OWUI JS.
-   Full list: gray-{50,100,200,300,600,700,800,850,900,950} + /n.
+   Two variants:
+     hover:bg-gray-*        — direct mouse hover
+     group-hover:bg-gray-*  — parent-group mouse hover (chat list rows)
+   Full lists extracted from compiled OWUI JS bundles.
    Attribute selectors override Tailwind v4's baked oklab() values.
    =================================================================== */
 
+/* Direct hover — every variant */
 [class*="hover:bg-gray-"]:hover,
 [class*="dark:hover:bg-gray-"]:hover {
+  background-color: var(--card-raised) !important;
+}
+
+/* Group-hover — triggered when parent .group is hovered.
+   Chat history rows use group-hover:bg-gray-100 dark:group-hover:bg-gray-950 */
+.group:hover [class*="group-hover:bg-gray-"],
+.group:hover [class*="dark:group-hover:bg-gray-"] {
   background-color: var(--card-raised) !important;
 }
 
@@ -249,6 +259,17 @@ h1, h2, h3, h4 {
   background-color: var(--card) !important;
   border-color: var(--border) !important;
   color: var(--text) !important;
+}
+
+/* "..." fade gradient on chat history rows —
+   from-gray-100 dark:from-gray-950 renders as white/light fade.
+   Override to match sidebar bg so it blends in. */
+[class*="from-gray-100"],
+[class*="dark:from-gray-950"] {
+  --tw-gradient-from: var(--card) !important;
+}
+[class*="from-gray-950"] {
+  --tw-gradient-from: var(--card) !important;
 }
 
 
