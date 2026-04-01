@@ -1,5 +1,5 @@
 /*
- * Brace × PromptRoot Theme — Open WebUI v6.4
+ * Brace × PromptRoot Theme — Open WebUI v6.5
  * Aligned with PromptRoot UI Guidelines v2.0
  *
  * Architecture:
@@ -435,40 +435,47 @@ pre, .hljs, code {
 
 /* ── Phase 3 fixes ──────────────────────────────────────────────── */
 
-/* 3a: Confirmation/delete/alert modals — force dark background
-   OWUI renders modals as fixed overlays with bg-white dark:bg-gray-850,
-   plus inner panels with rounded + shadow. */
-[role="dialog"],
-[role="alertdialog"],
-.modal,
-dialog,
-/* Fixed overlay containers (modals are position:fixed z-50+) */
-.fixed.z-\[9999\], .fixed.z-\[999\], .fixed.z-\[99\],
-[class*="fixed"][class*="z-"][class*="rounded"][class*="shadow"],
-[class*="fixed"][class*="bg-white"],
-[class*="fixed"][class*="dark:bg-gray-"] {
+/* 3a: Confirmation/delete modals — dark background + visible confirm button
+   ConfirmDialog.svelte structure:
+     outer: fixed inset-0 bg-black/60 z-99999999
+     panel:  bg-white/95 dark:bg-gray-950/95 rounded-4xl border border-white dark:border-gray-900
+     cancel: dark:bg-gray-850 dark:hover:bg-gray-800 dark:text-white
+     confirm: dark:bg-gray-100 dark:hover:bg-white dark:text-gray-800
+*/
+
+/* Panel background — bg-white/95 and dark:bg-gray-950/95 */
+[class*="bg-white\/95"],
+.dark\:bg-gray-950\/95,
+[class*="dark:bg-gray-950\/95"] {
   background-color: var(--card) !important;
-  color: var(--text) !important;
+  backdrop-filter: none !important;
+}
+
+/* Panel border */
+.border-white, .dark\:border-gray-900 {
   border-color: var(--border) !important;
 }
 
-/* Modal overlay backdrop */
-[class*="fixed"][class*="inset-0"]:not([class*="rounded"]) {
-  background-color: rgba(0, 0, 0, 0.7) !important;
+/* Text inside modal */
+.dark\:text-gray-200 { color: var(--text) !important; }
+
+/* Cancel button */
+.dark\:bg-gray-850.dark\:hover\:bg-gray-800 {
+  background-color: var(--surface) !important;
 }
 
-/* Modal inner content panels */
-[role="dialog"] > div,
-[role="alertdialog"] > div,
-.modal > div {
-  background-color: var(--card) !important;
-  color: var(--text) !important;
+/* Confirm button — dark:bg-gray-100 dark:text-gray-800 renders invisible on dark bg.
+   Override to accent (cyan) so it's clearly visible. */
+.dark\:bg-gray-100 {
+  background-color: var(--accent) !important;
+  color: var(--bg) !important;
 }
-
-/* bg-white inside any modal/overlay context */
-[class*="fixed"] [class*="bg-white"],
-[class*="fixed"] .bg-white {
-  background-color: var(--card) !important;
+.dark\:hover\:bg-white:hover {
+  background-color: var(--accent-hover) !important;
+  color: var(--bg) !important;
+}
+.dark\:text-gray-800 {
+  color: var(--bg) !important;
 }
 
 
