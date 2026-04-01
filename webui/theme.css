@@ -1,5 +1,5 @@
 /*
- * Brace × PromptRoot Theme — Open WebUI
+ * Brace × PromptRoot Theme — Open WebUI v6.4
  * Aligned with PromptRoot UI Guidelines v2.0
  *
  * Architecture:
@@ -432,6 +432,95 @@ pre, .hljs, code {
 .dark\:via-gray-900                          { --tw-gradient-via:  var(--bg) !important; }
 .from-gray-50, .from-gray-100               { --tw-gradient-from: var(--card) !important; }
 .to-white                                   { --tw-gradient-to:   var(--card) !important; }
+
+/* ── Phase 3 fixes ──────────────────────────────────────────────── */
+
+/* 3a: Confirmation/delete/alert modals — force dark background
+   OWUI renders modals as fixed overlays with bg-white dark:bg-gray-850,
+   plus inner panels with rounded + shadow. */
+[role="dialog"],
+[role="alertdialog"],
+.modal,
+dialog,
+/* Fixed overlay containers (modals are position:fixed z-50+) */
+.fixed.z-\[9999\], .fixed.z-\[999\], .fixed.z-\[99\],
+[class*="fixed"][class*="z-"][class*="rounded"][class*="shadow"],
+[class*="fixed"][class*="bg-white"],
+[class*="fixed"][class*="dark:bg-gray-"] {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+/* Modal overlay backdrop */
+[class*="fixed"][class*="inset-0"]:not([class*="rounded"]) {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Modal inner content panels */
+[role="dialog"] > div,
+[role="alertdialog"] > div,
+.modal > div {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+}
+
+/* bg-white inside any modal/overlay context */
+[class*="fixed"] [class*="bg-white"],
+[class*="fixed"] .bg-white {
+  background-color: var(--card) !important;
+}
+
+
+/* 3b: Chat message text contrast — dark grey on black is unreadable.
+   Force message content text to full --text brightness. */
+[data-message-role],
+[class*="message-content"],
+[class*="chat-message"],
+/* Prose (markdown renderer) */
+.prose, .prose-sm, .prose-base,
+[class*="prose"] {
+  color: var(--text) !important;
+}
+
+.prose p, .prose li, .prose span,
+.prose h1, .prose h2, .prose h3, .prose h4,
+[class*="prose"] p, [class*="prose"] li, [class*="prose"] span {
+  color: var(--text) !important;
+}
+
+/* OWUI message bubbles use generic div containers — target by svelte-vhdo11
+   and common message wrapper patterns */
+[class*="svelte-vhdo11"] {
+  color: var(--text) !important;
+}
+
+/* Catch-all for any text inside the main chat scroll area */
+main [class*="w-full"] p,
+main [class*="w-full"] span:not([class*="code"]):not([class*="tag"]) {
+  color: var(--text) !important;
+}
+
+
+/* 3c: White gradient at top of chat — OWUI applies:
+   bg-linear-to-b from-white/90 via-white/50 to-transparent
+   dark:from-gray-900/90 dark:via-gray-900/50
+   Override by killing the from/via/to values. */
+[class*="from-white"],
+[class*="from-white\/"] {
+  --tw-gradient-from: transparent !important;
+}
+
+[class*="via-white"],
+[class*="via-white\/"] {
+  --tw-gradient-via: transparent !important;
+}
+
+/* Also kill the bottom overlay gradient */
+[class*="bg-linear-to-b"][class*="from-white"],
+[class*="bg-linear-to-t"][class*="from-white"] {
+  background-image: none !important;
+}
 
 /* Tag / badge tints */
 .bg-gray-500\/20  { background-color: rgba(34,36,56,0.6)  !important; }
