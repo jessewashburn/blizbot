@@ -1,5 +1,5 @@
 /*
- * Brace × PromptRoot Theme — Open WebUI v6.6
+ * Brace × PromptRoot Theme — Open WebUI v6.7
  * Aligned with PromptRoot UI Guidelines v2.0
  *
  * Architecture:
@@ -594,7 +594,35 @@ main [class*="w-full"] span:not([class*="code"]):not([class*="tag"]) {
 
 
 /* ===================================================================
-   12. FONT IMPORT
+   12. AUTH PAGES & SPLASH SCREEN
+   =================================================================== */
+
+/* Signup page outer bg — uses bg-white dark:bg-black, mismatches signin */
+#auth-page,
+#auth-page > div {
+  background-color: var(--bg) !important;
+}
+
+/* Splash / loading screen — inline styles can't be overridden by CSS,
+   but we target what we can for the structural wrapper */
+#splash-screen {
+  background-color: var(--bg) !important;
+  background: var(--bg) !important;
+}
+
+/* Progress bar track */
+#progress-background {
+  background-color: var(--accent-glow) !important;
+}
+
+/* Progress bar fill */
+#progress-bar {
+  background-color: var(--accent) !important;
+}
+
+
+/* ===================================================================
+   13. FONT IMPORT
    =================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
